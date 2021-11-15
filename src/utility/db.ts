@@ -43,8 +43,10 @@ const getProducts = (): Promise<Product[]> => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             resolve(products)
-        }, 1000);
-        () => reject(new Error('Network Error'))
+        },1000);
+        setTimeout(() => {
+            reject(new Error('Network Error'))
+        },1500);
     })
 }
 
