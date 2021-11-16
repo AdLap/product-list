@@ -52,7 +52,7 @@ export default defineComponent({
   methods: {
     saveData() {
       console.log('from item', this.product);
-      this.$emit('eventSaveData', this.product);
+      this.$emit('eventSaveData', this.product.id);
     }
   }
 });

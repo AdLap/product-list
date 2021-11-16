@@ -33,10 +33,11 @@ export default defineComponent({
       .catch((err) => console.log(err.message));
   },
   methods: {
-    onEventSaveData(product: unknown) {
-      console.log("odebrano z item:", product);
-      // const idx = this.products.findIndex((product) => product.id === id);
-      // console.log(this.products[idx]);
+    onEventSaveData(id: number) {
+      const idx = this.products.findIndex((product) => product.id === id);
+      console.log('odebrano:', this.products[idx]);
+      console.log('products-state:', this.products)
+
     },
   },
 });
