@@ -1,10 +1,11 @@
-import Product from '@/types/Product'
+import Product from '@/types/types'
 
-const getProducts = (): Promise<Product[]> => {
+const fetchProducts = (): Promise<Product[]> => {
 
     const products = [
         {
             name: "Porsche",
+            checked: false,
             vatRate: 0,
             buyPrice: 1_000_000,
             sellPrice: 1_500_000,
@@ -12,6 +13,7 @@ const getProducts = (): Promise<Product[]> => {
         },
         {
             name: "Infiniti",
+            checked: false,
             vatRate: 0,
             buyPrice: 800_000,
             sellPrice: 1_000_000,
@@ -19,6 +21,7 @@ const getProducts = (): Promise<Product[]> => {
         },
         {
             name: "Mazda",
+            checked: false,
             vatRate: 0,
             buyPrice: 300_000,
             sellPrice: 400_000,
@@ -26,6 +29,7 @@ const getProducts = (): Promise<Product[]> => {
         },
         {
             name: "Lexus",
+            checked: false,
             vatRate: 0,
             buyPrice: 700_000,
             sellPrice: 900_000,
@@ -33,6 +37,7 @@ const getProducts = (): Promise<Product[]> => {
         },
         {
             name: "Mercedes",
+            checked: false,
             vatRate: 0,
             buyPrice: 900_000,
             sellPrice: 1_100_000,
@@ -50,4 +55,4 @@ const getProducts = (): Promise<Product[]> => {
     })
 }
 
-export default getProducts;
+export default fetchProducts;

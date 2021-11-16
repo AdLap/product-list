@@ -5,6 +5,7 @@
         v-for="product in products"
         :key="product.id"
         :product="product"
+        @eventSaveData="onEventSaveData"
       />
     </table>
     <h2 v-else>Czekam na dane...</h2>
@@ -13,8 +14,8 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import Product from "@/types/Product";
-import getProduct from "../utility/db";
+import Product from "@/types/types";
+import fetchProducts from "../utility/db";
 import ProductItem from "./ProductItem.vue";
 
 export default defineComponent({
@@ -25,11 +26,18 @@ export default defineComponent({
     return { products };
   },
   mounted() {
-    getProduct()
+    fetchProducts()
       .then((data) => {
         this.products = data;
       })
       .catch((err) => console.log(err.message));
+  },
+  methods: {
+    onEventSaveData(product: unknown) {
+      console.log("odebrano z item:", product);
+      // const idx = this.products.findIndex((product) => product.id === id);
+      // console.log(this.products[idx]);
+    },
   },
 });
 </script>

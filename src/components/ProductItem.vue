@@ -3,19 +3,19 @@
     <td>
       <input type="checkbox" />
     </td>
-    <td>{{product.name}}</td>
+    <td>{{ product.name }}</td>
     <td>
       <select>
-        <option>0%</option>
-        <option>8%</option>
-        <option>23%</option>
+        <option value="0">0%</option>
+        <option value=".08">8%</option>
+        <option value=".23">23%</option>
       </select>
     </td>
     <td>
-      <input type="text" />
+      {{ product.buyPrice }}
     </td>
-    <td>
-      <input type="text" />
+    <td contenteditable="true">
+      {{ product.sellPrice }}
     </td>
     <td>
       {{
@@ -27,15 +27,14 @@
       }}
     </td>
     <td>
-        <button>Zapisz</button>
+      <button @click="saveData">Zapisz</button>
     </td>
   </tr>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import Product from "@/types/Product";
-
+import Product from "@/types/types";
 
 export default defineComponent({
   name: "ProductItem",
@@ -45,5 +44,11 @@ export default defineComponent({
       type: Object as () => Product,
     },
   },
+  methods: {
+    saveData() {
+      console.log('from item', this.product);
+      this.$emit('eventSaveData', this.product);
+    }
+  }
 });
 </script>
