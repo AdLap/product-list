@@ -3,19 +3,19 @@
     <td>
       <input type="checkbox" />
     </td>
-    <td>{{ product.name }}</td>
+    <td>{{ currProduct.name }}</td>
     <td>
-      <select>
+      <select v-model="currProduct.vatRate">
         <option value="0">0%</option>
         <option value=".08">8%</option>
         <option value=".23">23%</option>
       </select>
     </td>
     <td>
-      {{ product.buyPrice }}
+      <input v-model="currProduct.buyPrice"/>
     </td>
-    <td contenteditable="true">
-      {{ product.sellPrice }}
+    <td>
+      <input v-model="currProduct.sellPrice" />
     </td>
     <td>
       {{
@@ -43,6 +43,11 @@ export default defineComponent({
       required: true,
       type: Object as () => Product,
     },
+  },
+  data() {
+    return {
+      currProduct: this.product
+    }
   },
   methods: {
     saveData() {
