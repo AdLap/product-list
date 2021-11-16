@@ -1,7 +1,7 @@
 <template>
   <tr>
     <td>
-      <input type="checkbox" />
+      <input type="checkbox" v-model="currProduct.checked" />
     </td>
     <td>{{ currProduct.name }}</td>
     <td>
@@ -12,20 +12,12 @@
       </select>
     </td>
     <td>
-      <input v-model="currProduct.buyPrice"/>
+      <input v-model="currProduct.buyPrice" />
     </td>
     <td>
       <input v-model="currProduct.sellPrice" />
     </td>
-    <td>
-      {{
-        (
-          ((product.sellPrice / (1 + product.vatRate) - product.buyPrice) /
-            (product.sellPrice / (1 + product.vatRate))) *
-          100
-        ).toFixed(2)
-      }}
-    </td>
+    <td>{{ currProduct.tradeMargin }}</td>
     <td>
       <button @click="saveData">Zapisz</button>
     </td>
@@ -35,6 +27,12 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import Product from "@/types/types";
+
+const calculateMargin = (sellPrice: number, vatRate: number, buyPrice: number): number => {
+    const tradeMargin: number = ((sellPrice / (1 + vatRate) - buyPrice) /
+        (sellPrice / (1 + vatRate)) * 100)
+    return Number(tradeMargin.toFixed(2))
+};
 
 export default defineComponent({
   name: "ProductItem",
@@ -46,14 +44,21 @@ export default defineComponent({
   },
   data() {
     return {
-      currProduct: this.product
-    }
+      currProduct: this.product,
+    };
+  },
+  updated() {
+    this.currProduct.tradeMargin = calculateMargin(
+      this.currProduct.sellPrice,
+      this.currProduct.vatRate,
+      this.currProduct.buyPrice
+    );
   },
   methods: {
     saveData() {
-      console.log('from item', this.product);
-      this.$emit('eventSaveData', this.product.id);
-    }
-  }
+      console.log("from item", this.product);
+      this.$emit("eventSaveData", this.product.id);
+    },
+  },
 });
 </script>

@@ -9,6 +9,7 @@ const fetchProducts = (): Promise<Product[]> => {
             vatRate: 0,
             buyPrice: 1_000_000,
             sellPrice: 1_500_000,
+            tradeMargin: 0,
             id: 1,
         },
         {
@@ -17,6 +18,7 @@ const fetchProducts = (): Promise<Product[]> => {
             vatRate: 0,
             buyPrice: 800_000,
             sellPrice: 1_000_000,
+            tradeMargin: 0,
             id: 2,
         },
         {
@@ -25,6 +27,7 @@ const fetchProducts = (): Promise<Product[]> => {
             vatRate: 0,
             buyPrice: 300_000,
             sellPrice: 400_000,
+            tradeMargin: 0,
             id: 3,
         },
         {
@@ -33,6 +36,7 @@ const fetchProducts = (): Promise<Product[]> => {
             vatRate: 0,
             buyPrice: 700_000,
             sellPrice: 900_000,
+            tradeMargin: 0,
             id: 4,
         },
         {
@@ -41,6 +45,7 @@ const fetchProducts = (): Promise<Product[]> => {
             vatRate: 0,
             buyPrice: 900_000,
             sellPrice: 1_100_000,
+            tradeMargin: 0,
             id: 5,
         },
     ];
@@ -53,6 +58,8 @@ const fetchProducts = (): Promise<Product[]> => {
             reject(new Error('Network Error'))
         },1500);
     })
-}
+};
+
+
 
 export default fetchProducts;

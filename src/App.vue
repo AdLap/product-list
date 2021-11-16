@@ -5,11 +5,11 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import ProductList from './components/ProductsList.vue'
+import ProductList from "./components/ProductsList.vue";
 
 export default defineComponent({
   name: "App",
-  components: {ProductList},
+  components: { ProductList },
   data() {
     return {
       title: "Lista produktów",

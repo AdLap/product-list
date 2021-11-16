@@ -10,6 +10,7 @@
     </table>
     <h2 v-else>Czekam na dane...</h2>
   </div>
+  <ProductSummary :products='products'/>
 </template>
 
 <script lang="ts">
@@ -17,11 +18,12 @@ import { defineComponent, ref } from "vue";
 import Product from "@/types/types";
 import fetchProducts from "../utility/db";
 import ProductItem from "./ProductItem.vue";
+import ProductSummary from './ProductsSummary.vue'
 
 export default defineComponent({
   name: "ProductList",
-  components: { ProductItem },
-  setup() {
+  components: { ProductItem, ProductSummary },
+  data() {
     const products = ref<Product[]>([]);
     return { products };
   },
@@ -37,7 +39,6 @@ export default defineComponent({
       const idx = this.products.findIndex((product) => product.id === id);
       console.log('odebrano:', this.products[idx]);
       console.log('products-state:', this.products)
-
     },
   },
 });
