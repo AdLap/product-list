@@ -44,10 +44,9 @@ export default defineComponent({
   methods: {
     onEventSaveData(id: number) {
       const idx = this.products.findIndex((product) => product.id === id);
+      console.log("odebrano:", this.products[idx]);
       this.savedProducts.push(this.products[idx]);
       this.products.splice(idx, 1);
-
-      console.log("odebrano:", this.products[idx]);
       console.log("products-state:", this.products);
     },
     onEventCheckedAll(value: boolean) {

@@ -5,7 +5,7 @@
         <input
           class="table__head__checkbox"
           type="checkbox"
-          @click="checkedAll"
+          v-model="checked"
         />
       </th>
       <th>{{ title }}</th>
@@ -24,6 +24,7 @@ export default defineComponent({
   name: "ProductsHead",
   data() {
     return {
+      checked: false,
       title: "Nazwa",
       vatRate: "VAT",
       buyPrice: "Cena zakupu",
@@ -31,10 +32,13 @@ export default defineComponent({
       tradeMargin: "Marża",
     };
   },
+  updated() {
+    this.checkedAll()
+  },
   methods: {
     checkedAll() {
       console.log("click checked all");
-      this.$emit("eventCheckedAll", true);
+      this.$emit("eventCheckAll", this.checked);
     },
   },
 });
