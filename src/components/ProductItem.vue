@@ -38,7 +38,7 @@
         :disabled="!currProduct.checked"
       />
     </td>
-    <td>{{ currProduct.tradeMargin }}</td>
+    <td>{{ currProduct.tradeMargin }}%</td>
     <td>
       <button
         class="table__btn"

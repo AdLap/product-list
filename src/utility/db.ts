@@ -55,7 +55,7 @@ const fetchProducts = (): Promise<Product[]> => {
             resolve(products)
         }, Math.random() * 1000);
         setTimeout(() => {
-            reject(new Error(`Network Error\nOdśwież stronę`))
+            reject(new Error(`Network Error:\nnic nie wczytano\nOdśwież stronę`))
         }, Math.random() * (1001 - 750) + 750);
     })
 };

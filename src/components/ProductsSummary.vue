@@ -19,7 +19,7 @@
           <td>{{ product.vatRate * 100 }}%</td>
           <td>{{ product.buyPrice }}</td>
           <td>{{ product.sellPrice }}</td>
-          <td>{{ product.tradeMargin }}</td>
+          <td>{{ product.tradeMargin }}%</td>
         </tr>
       </tbody>
     </table>

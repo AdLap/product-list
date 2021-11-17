@@ -14,8 +14,17 @@
         />
       </tbody>
     </table>
-    <div class="content__table__loading" v-if="!products.length">
+    <div
+      class="content__table__loading"
+      v-if="!products.length && !savedProducts.length"
+    >
       Czekam na dane...
+    </div>
+    <div
+      class="content__table__loading"
+      v-if="!products.length && savedProducts.length"
+    >
+      Wszystko wykupione
     </div>
   </section>
   <ProductSummary
@@ -59,6 +68,7 @@ export default defineComponent({
       const idx = this.products.findIndex((product) => product.id === id);
       this.savedProducts.push(this.products[idx]);
       this.products.splice(idx, 1);
+      this.errorMsg = '';
     },
     onEventSaveAll() {
       this.products.forEach((product) => this.savedProducts.push(product));
@@ -80,10 +90,7 @@ export default defineComponent({
             this.savedProducts = [];
           }
         })
-        .catch((error) => {
-          console.log(error)
-          this.errorMsg = error
-          });
+        .catch((error) => (this.errorMsg = error));
     },
   },
 });
