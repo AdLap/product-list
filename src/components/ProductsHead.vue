@@ -2,11 +2,14 @@
   <thead class="table__head">
     <tr>
       <th>
-        <input
+        <label>
+          <input
           class="table__head__checkbox"
           type="checkbox"
           v-model="checked"
         />
+        <span class="table__head__checkbox-fake"></span>
+        </label>
       </th>
       <th>{{ title }}</th>
       <th>{{ vatRate }}</th>
@@ -60,13 +63,37 @@ export default defineComponent({
   position: relative;
 
   &__checkbox {
-    width: 30px;
-    cursor: pointer;
+    position: absolute;
+    left: -100000px;
+
+    &-fake {
+      width: 14px;
+      height: 14px;
+      display: block;
+      position: absolute;
+      top: 9px;
+      left: 8px;
+      border: 1px solid gray;
+      border-radius: 3px;
+      cursor: pointer;
+      overflow: visible;
+    }
+
+    &:checked + .table__head__checkbox-fake {
+      &::after {
+        content: url("../assets/check.svg");
+        display: block;
+        position: absolute;
+        top: -7px;
+        left: -5px;
+      }
+    }
   }
 
   th {
     padding-bottom: 0.7em;
     max-width: 150px;
+    min-width: 48px;
   }
 
   &__btn {

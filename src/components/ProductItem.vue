@@ -1,11 +1,14 @@
 <template>
   <tr class="table__row" :class="{ checked: currProduct.checked }">
     <td>
-      <input
-        class="table__checkbox"
-        type="checkbox"
-        v-model="currProduct.checked"
-      />
+      <label>
+        <input
+          class="table__checkbox"
+          type="checkbox"
+          v-model="currProduct.checked"
+        />
+        <span class="table__checkbox-fake"></span>
+      </label>
     </td>
     <th>{{ currProduct.name }}</th>
     <td>
@@ -102,6 +105,10 @@ export default defineComponent({
       max-width: 150px;
       padding: 1em 0;
 
+      &:first-of-type {
+        position: relative;
+      }
+
       &:nth-last-of-type(2) {
         text-align: right;
         width: 50px;
@@ -114,8 +121,31 @@ export default defineComponent({
   }
 
   &__checkbox {
-    width: 30px;
-    cursor: pointer;
+    position: absolute;
+    left: -100000px;
+
+    &-fake {
+      width: 14px;
+      height: 14px;
+      display: block;
+      position: absolute;
+      top: 24px;
+      left: 8px;
+      border: 1px solid gray;
+      border-radius: 3px;
+      cursor: pointer;
+      overflow: visible;
+    }
+
+    &:checked + .table__checkbox-fake {
+      &::after {
+        content: url("../assets/check.svg");
+        display: block;
+        position: absolute;
+        top: -7px;
+        left: -5px;
+      }
+    }
   }
 
   &__select {
