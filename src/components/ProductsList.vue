@@ -1,7 +1,10 @@
 <template>
   <section class="content">
     <table class="content__table">
-      <ProductsHead @eventCheckAll="onEventCheckedAll" />
+      <ProductsHead
+        @eventCheckAll="onEventCheckedAll"
+        @eventSaveAll="onEventSaveAll"
+      />
       <tbody class="content__table__body" v-if="products.length">
         <ProductItem
           v-for="product in products"
@@ -15,43 +18,72 @@
       Czekam na dane...
     </div>
   </section>
-  <ProductSummary :savedProducts="savedProducts" />
+  <ProductSummary
+    :savedProducts="savedProducts"
+    @eventSendProducts="onEventSendProducts"
+  />
+  <Success :successMsg="successMsg" v-if="successMsg" />
+  <ErrorMsg :errorMsg="errorMsg" v-if="errorMsg" />
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
+import axios from "axios";
 import Product from "@/types/types";
 import fetchProducts from "../utility/db";
 import ProductsHead from "./ProductsHead.vue";
 import ProductItem from "./ProductItem.vue";
 import ProductSummary from "./ProductsSummary.vue";
+import Success from "../utility/Success.vue";
+import ErrorMsg from "../utility/ErrorMsg.vue";
 
 export default defineComponent({
   name: "ProductList",
-  components: { ProductItem, ProductSummary, ProductsHead },
+  components: { ProductItem, ProductSummary, ProductsHead, Success, ErrorMsg },
   data() {
     const products = ref<Product[]>([]);
     const savedProducts = ref<Product[]>([]);
-    return { products, savedProducts };
+    let successMsg = "";
+    let errorMsg = "";
+    return { products, savedProducts, errorMsg, successMsg };
   },
   mounted() {
     fetchProducts()
       .then((data) => {
         this.products = data;
       })
-      .catch((err) => console.log(err.message));
+      .catch((err) => (this.errorMsg = err.message));
   },
   methods: {
     onEventSaveData(id: number) {
       const idx = this.products.findIndex((product) => product.id === id);
-      console.log("odebrano:", this.products[idx]);
       this.savedProducts.push(this.products[idx]);
       this.products.splice(idx, 1);
-      console.log("products-state:", this.products);
+    },
+    onEventSaveAll() {
+      this.products.forEach((product) => this.savedProducts.push(product));
+      this.products = [];
     },
     onEventCheckedAll(value: boolean) {
-      console.log("odebrano event checked all");
       this.products.forEach((product) => (product.checked = value));
+    },
+    onEventSendProducts() {
+      axios
+        .post("https://nieistniejący.adres.pl/v1/api", this.savedProducts, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        .then((resp) => {
+          if (resp.status === 200) {
+            this.successMsg = "Produkty wysłane";
+            this.savedProducts = [];
+          }
+        })
+        .catch((error) => {
+          console.log(error)
+          this.errorMsg = error
+          });
     },
   },
 });
@@ -70,6 +102,7 @@ export default defineComponent({
     line-height: 2em;
     text-align: left;
     border-collapse: collapse;
+    background: transparent;
 
     &__loading {
       text-align: center;

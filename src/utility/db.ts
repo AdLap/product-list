@@ -53,13 +53,11 @@ const fetchProducts = (): Promise<Product[]> => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             resolve(products)
-        },1000);
+        }, Math.random() * 1000);
         setTimeout(() => {
-            reject(new Error('Network Error'))
-        },1500);
+            reject(new Error(`Network Error\nOdśwież stronę`))
+        }, Math.random() * (1001 - 750) + 750);
     })
 };
-
-
 
 export default fetchProducts;

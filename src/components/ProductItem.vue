@@ -24,6 +24,7 @@
       <input
         class="table__text__input"
         :class="{ disabled: !currProduct.checked }"
+        type="number"
         v-model="currProduct.buyPrice"
         :disabled="!currProduct.checked"
       />
@@ -32,6 +33,7 @@
       <input
         class="table__text__input"
         :class="{ disabled: !currProduct.checked }"
+        type="number"
         v-model="currProduct.sellPrice"
         :disabled="!currProduct.checked"
       />
@@ -87,7 +89,6 @@ export default defineComponent({
   },
   methods: {
     saveData() {
-      console.log("from item", this.product);
       this.$emit("eventSaveData", this.product.id);
     },
   },
@@ -151,6 +152,10 @@ export default defineComponent({
 
     &:hover {
       background: white;
+    }
+
+    &:active {
+      background: transparent;
     }
   }
 }

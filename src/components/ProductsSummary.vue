@@ -23,6 +23,14 @@
         </tr>
       </tbody>
     </table>
+    <button
+      class="summary__btn"
+      :class="{ hidden: !this.savedProducts.length }"
+      :disabled="!this.savedProducts.length"
+      @click="sendProducts"
+    >
+      Wyślij
+    </button>
   </div>
 </template>
 
@@ -36,6 +44,11 @@ export default defineComponent({
     savedProducts: {
       required: true,
       type: Array as PropType<Product[]>,
+    },
+  },
+  methods: {
+    sendProducts() {
+      this.$emit("eventSendProducts");
     },
   },
 });
@@ -57,6 +70,28 @@ export default defineComponent({
 
   td {
     text-align: right;
+  }
+
+  &__btn {
+    padding: 0.5em 1em;
+    border-radius: 3px;
+    border: 1px solid grey;
+    background: transparent;
+    cursor: pointer;
+    margin: 30px 0 0 10px;
+
+    &:hover {
+      background: #ebebeb;
+    }
+
+    &:active {
+      background: transparent;
+    }
+  }
+
+  .hidden {
+    opacity: 0;
+    cursor: default;
   }
 }
 </style>
