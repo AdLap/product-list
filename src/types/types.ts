@@ -5,6 +5,7 @@ interface Product {
     buyPrice: number;
     sellPrice: number;
     tradeMargin: number;
+    picture: string;
     readonly id: number;
 }
 

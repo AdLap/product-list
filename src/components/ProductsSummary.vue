@@ -1,5 +1,5 @@
 <template>
-  <div class="summary">
+  <section class="summary">
     <table>
       <thead>
         <tr>
@@ -31,7 +31,7 @@
     >
       Wyślij
     </button>
-  </div>
+  </section>
 </template>
 
 <script lang="ts">

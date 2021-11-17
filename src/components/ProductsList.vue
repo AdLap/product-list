@@ -1,38 +1,40 @@
 <template>
-  <section class="content">
-    <table class="content__table">
-      <ProductsHead
-        @eventCheckAll="onEventCheckedAll"
-        @eventSaveAll="onEventSaveAll"
-      />
-      <tbody class="content__table__body" v-if="products.length">
-        <ProductItem
-          v-for="product in products"
-          :key="product.id"
-          :product="product"
-          @eventSaveData="onEventSaveData"
+  <main class="main">
+    <section class="content">
+      <table class="content__table">
+        <ProductsHead
+          @eventCheckAll="onEventCheckedAll"
+          @eventSaveAll="onEventSaveAll"
         />
-      </tbody>
-    </table>
-    <div
-      class="content__table__loading"
-      v-if="!products.length && !savedProducts.length"
-    >
-      Czekam na dane...
-    </div>
-    <div
-      class="content__table__loading"
-      v-if="!products.length && savedProducts.length"
-    >
-      Wszystko wykupione
-    </div>
-  </section>
-  <ProductSummary
-    :savedProducts="savedProducts"
-    @eventSendProducts="onEventSendProducts"
-  />
-  <Success :successMsg="successMsg" v-if="successMsg" />
-  <ErrorMsg :errorMsg="errorMsg" v-if="errorMsg" />
+        <tbody class="content__table__body" v-if="products.length">
+          <ProductItem
+            v-for="product in products"
+            :key="product.id"
+            :product="product"
+            @eventSaveData="onEventSaveData"
+          />
+        </tbody>
+      </table>
+      <div
+        class="content__table__loading"
+        v-if="!products.length && !savedProducts.length"
+      >
+        Czekam na dane...
+      </div>
+      <div
+        class="content__table__loading"
+        v-if="!products.length && savedProducts.length"
+      >
+        Wszystko wykupione
+      </div>
+      <Success :successMsg="successMsg" v-if="successMsg" />
+      <ErrorMsg :errorMsg="errorMsg" v-if="errorMsg" />
+    </section>
+    <ProductSummary
+      :savedProducts="savedProducts"
+      @eventSendProducts="onEventSendProducts"
+    />
+  </main>
 </template>
 
 <script lang="ts">
@@ -68,7 +70,7 @@ export default defineComponent({
       const idx = this.products.findIndex((product) => product.id === id);
       this.savedProducts.push(this.products[idx]);
       this.products.splice(idx, 1);
-      this.errorMsg = '';
+      this.errorMsg = "";
     },
     onEventSaveAll() {
       this.products.forEach((product) => this.savedProducts.push(product));
@@ -97,6 +99,16 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.main {
+  width: 100%;
+  min-height: calc(100vh - 189px);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  gap: 2rem;
+}
+
 .content {
   width: 100vw;
   min-height: 285px;

@@ -10,6 +10,11 @@
         <span class="table__checkbox-fake"></span>
       </label>
     </td>
+    <td>
+      <div class="table__picture">
+        <img :src="currProduct.picture" alt="produkt" />
+      </div>
+    </td>
     <th>{{ currProduct.name }}</th>
     <td>
       <select
@@ -129,7 +134,7 @@ export default defineComponent({
       height: 14px;
       display: block;
       position: absolute;
-      top: 24px;
+      top: 29px;
       left: 8px;
       border: 1px solid gray;
       border-radius: 3px;
@@ -145,6 +150,23 @@ export default defineComponent({
         top: -7px;
         left: -5px;
       }
+    }
+  }
+
+  &__picture {
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 50%;
+
+    img {
+      width: 75px;
+      height: auto;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
   }
 

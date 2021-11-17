@@ -11,6 +11,7 @@
         <span class="table__head__checkbox-fake"></span>
         </label>
       </th>
+      <th></th>
       <th>{{ title }}</th>
       <th>{{ vatRate }}</th>
       <th>{{ buyPrice }}</th>
