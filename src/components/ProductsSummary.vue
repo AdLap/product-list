@@ -14,7 +14,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="product in products" :key="product.id">
+        <tr v-for="product in savedProducts" :key="product.id">
           <th>{{ product.name }}</th>
           <td>{{ product.vatRate * 100 }}%</td>
           <td>{{ product.buyPrice }}</td>
@@ -33,7 +33,7 @@ import Product from "@/types/types";
 export default defineComponent({
   name: "ProductSummary",
   props: {
-    products: {
+    savedProducts: {
       required: true,
       type: Array as PropType<Product[]>,
     },

@@ -1,7 +1,13 @@
 <template>
   <thead class="table__head">
     <tr>
-      <th><input class="table__head__checkbox" type="checkbox" /></th>
+      <th>
+        <input
+          class="table__head__checkbox"
+          type="checkbox"
+          @click="checkedAll"
+        />
+      </th>
       <th>{{ title }}</th>
       <th>{{ vatRate }}</th>
       <th>{{ buyPrice }}</th>
@@ -25,6 +31,12 @@ export default defineComponent({
       tradeMargin: "Marża",
     };
   },
+  methods: {
+    checkedAll() {
+      console.log("click checked all");
+      this.$emit("eventCheckedAll", true);
+    },
+  },
 });
 </script>
 
@@ -32,6 +44,7 @@ export default defineComponent({
 .table__head {
   &__checkbox {
     width: 30px;
+    cursor: pointer;
   }
 
   th {

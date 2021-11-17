@@ -1,7 +1,7 @@
 <template>
   <section class="content">
     <table class="content__table">
-      <ProductsHead />
+      <ProductsHead @eventCheckAll="onEventCheckedAll" />
       <tbody class="content__table__body" v-if="products.length">
         <ProductItem
           v-for="product in products"
@@ -15,7 +15,7 @@
       Czekam na dane...
     </div>
   </section>
-  <ProductSummary :products="products" />
+  <ProductSummary :savedProducts="savedProducts" />
 </template>
 
 <script lang="ts">
@@ -31,7 +31,8 @@ export default defineComponent({
   components: { ProductItem, ProductSummary, ProductsHead },
   data() {
     const products = ref<Product[]>([]);
-    return { products };
+    const savedProducts = ref<Product[]>([]);
+    return { products, savedProducts };
   },
   mounted() {
     fetchProducts()
@@ -43,8 +44,15 @@ export default defineComponent({
   methods: {
     onEventSaveData(id: number) {
       const idx = this.products.findIndex((product) => product.id === id);
+      this.savedProducts.push(this.products[idx]);
+      this.products.splice(idx, 1);
+
       console.log("odebrano:", this.products[idx]);
       console.log("products-state:", this.products);
+    },
+    onEventCheckedAll(value: boolean) {
+      console.log("odebrano event checked all");
+      this.products.forEach((product) => (product.checked = value));
     },
   },
 });
@@ -62,6 +70,7 @@ export default defineComponent({
     max-width: 800px;
     line-height: 2em;
     text-align: left;
+    border-collapse: collapse;
 
     &__loading {
       text-align: center;
